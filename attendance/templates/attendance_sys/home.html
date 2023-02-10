@@ -1,0 +1,165 @@
+{% extends 'attendance_sys/main.html' %}
+
+{% block content %}
+<div class="container">
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% else %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endif %}
+    {% endfor %}
+    <div class="row">
+        <div class="col-md-6" style="margin-top: 20px;">
+            <div class="card card-body">
+                <h3 class="text-center">Take Attendance</h3>
+                <form class="form-horizontal" action="{% url 'attendance' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="sel1">Select Branch:</label>
+                        <select name='branch' class="form-control" id="sel1">
+                            <option value="Computing">Computing</option>
+                            <option value="Networking">Networking</option>
+                            <option value="Multimedia">Multimedia</option>
+                            <option value="AI">AI</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sel1">Select Year:</label>
+                        <select name='year' class="form-control" id="sel1">
+                            <option value="1">1st</option>
+                            <option value="2">2nd</option>
+                            <option value="3">3rd</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sel1">Select Section:</label>
+                        <select name='section' class="form-control" id="sel1">
+                            <option value="C1">C1</option>
+                            <option value="C2">C2</option>
+                            <option value="C3">C3</option>
+                            <option value="C4">C4</option>
+                            <option value="C5">C5</option>
+                            <option value="C6">C6</option>
+                            <option value="C7">C7</option>
+                            <option value="C8">C8</option>
+                            <option value="C9">C9</option>
+                            <option value="C10">C10</option>
+                            <option value="C11">C11</option>
+                            <option value="C12">C12</option>
+                            <option value="C13">C13</option>
+                            <option value="C14">C14</option>
+                            <option value="C15">C15</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sel1">Select Period:</label>
+                        <select name='period' class="form-control" id="sel1">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-block btn-info">Take Attendance</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6" style="margin-top: 20px;">
+            <div class="card card-body">
+                <center><h3>Add Student</h3></center>
+                <form class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">Enter First Name:</label>
+                                {{ studentForm.firstname }}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">Enter Last Name:</label>
+                                {{ studentForm.lastname }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Enter Registration ID:</label>
+                                {{ studentForm.registration_id }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="sel1">Select Branch:</label>
+                                {{ studentForm.branch }}
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="sel1">Select Year:</label>
+                                {{ studentForm.year }}
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="sel1">Select Section:</label>
+                                {{ studentForm.section }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                            <div class="form-group" style="border: none;">
+                                <label class="control-label">Upload Profile Picture:</label>
+                                {{ studentForm.profile_pic }}
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-block btn-info">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-6" style="margin-top: 20px;">
+            <div class="card card-body">
+                <center><h3>Update Student Details</h3></center>
+                <form class="form-horizontal" action="{% url 'update_student_redirect' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label class="control-label">Enter Student Registration ID:</label>
+                        <input name="reg_id" type="text" class="form-control" placeholder="Ex: NP01CP4S000000">
+                    </div>
+                    <div class="form-group">
+                        <label for="sel1">Select Branch:</label>
+                        <select name='branch' class="form-control" id="sel1">
+                            <option value="Computing">Computing</option>
+                            <option value="Networking">Networking</option>
+                            <option value="Multimedia">Multimedia</option>
+                            <option value="AI">AI</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-block btn-info">Submit</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6" style="margin-top: 20px;;">
+            <div class="card card-body">
+                <center><h3>Search Attendance</h3></center>
+                    <a href="{% url 'search_attendance' %}" class="btn btn-block btn-info">Click Here</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
