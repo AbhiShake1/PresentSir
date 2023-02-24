@@ -176,7 +176,7 @@ def take_attendance(request):
             section=section,
         )
 
-        if reg_id in names:
+        if names is not None and reg_id in names:
             attendance.status = 'Present'
 
         attendance.save()

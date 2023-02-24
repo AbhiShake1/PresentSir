@@ -75,3 +75,4 @@ def recognizer(details):
 
     video.release()
     cv2.destroyAllWindows()
+    return names
